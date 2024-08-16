@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux';
-import { selectIsLoading, selectIsInit } from '../../services/slices/userSlice';
+import { selectIsLoading, selectUser } from '../../services/slices/userSlice';
 
 import { Preloader } from '@ui';
 import { Navigate, useLocation } from 'react-router-dom';
+import { useSelector } from '../../services/store';
 
 type ProtectedRouteProps = {
   children: React.ReactElement;
@@ -13,12 +13,12 @@ export const ProtectedRoute = ({
   children,
   onlyUnAuth
 }: ProtectedRouteProps) => {
-  const isAuthChecked = true; //импортировать селект из хранилища(сщстояние загрузки)
-  const user = {}; //импортировать селект из хранилища(авторизован ли пользователь)
+  const isAuthChecked = useSelector(selectIsLoading);
+  const user = useSelector(selectUser);
   const location = useLocation();
 
   // пока идет загрузка отображаем прелоадер
-  if (!isAuthChecked) {
+  if (isAuthChecked) {
     return <Preloader />;
   }
 

@@ -11,22 +11,24 @@ import {
 } from '@pages';
 import '../../index.css';
 import styles from './app.module.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 import { AppHeader, Modal, OrderInfo, IngredientDetails } from '@components';
 import { ProtectedRoute } from '../protected-route';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { ingredientsThunk } from '../../services/slices/ingregientsSlice';
+import { getUserThunk } from '../../services/slices/userSlice';
+import { feedThunk } from '../../services/slices/feedSlice';
 
 const App = () => {
   const navigate = useNavigate();
-  const handleModalClose = () => navigate(-1);
-
   const dispatch = useDispatch();
+  const handleModalClose = () => navigate(-1);
 
   useEffect(() => {
     dispatch(ingredientsThunk());
+    // dispatch(getUserThunk());
   }, []);
 
   return (
@@ -93,7 +95,9 @@ const App = () => {
         />
 
         <Route path='*' element={<NotFound404 />} />
+        {/* </Routes> */}
 
+        {/* <Routes> */}
         <Route
           path='/feed/:number'
           element={

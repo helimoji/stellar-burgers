@@ -8,10 +8,16 @@ import {
 
 import { ingredientsSlice } from './slices/ingregientsSlice';
 import { constructorSlice } from './slices/constructorSlice';
+import { newOrderSlice } from './slices/newOrderSlice';
+import { userSlice } from './slices/userSlice';
+import { feedSlice } from './slices/feedSlice';
 
 const rootReducer = combineReducers({
   [ingredientsSlice.name]: ingredientsSlice.reducer,
-  [constructorSlice.name]: constructorSlice.reducer
+  [constructorSlice.name]: constructorSlice.reducer,
+  [newOrderSlice.name]: newOrderSlice.reducer,
+  [userSlice.name]: userSlice.reducer,
+  [feedSlice.name]: feedSlice.reducer
 }); // Заменить на импорт настоящего редьюсера
 
 const store = configureStore({

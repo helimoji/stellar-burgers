@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CONSTRUCTORE_SLICE_NAME } from '../constants';
 import { TConstructorIngredient } from '@utils-types';
 import { v4 as uuidv4 } from 'uuid';
@@ -12,8 +12,7 @@ const initialState: ConstructorState = {
   bun: null,
   ingredients: []
 };
-// Редюсер здесь должен менять стейт в зависимоти от действия
-// действия: добавить\удалить ингредиент, очистить все
+
 export const constructorSlice = createSlice({
   name: CONSTRUCTORE_SLICE_NAME,
   initialState,
@@ -37,8 +36,25 @@ export const constructorSlice = createSlice({
       );
     },
     clearAll: (state) => (state = initialState),
-    updateAll: (state, action: PayloadAction<TConstructorIngredient[]>) => {
-      state.ingredients = action.payload;
+    moveDown: (state, action: PayloadAction<number>) => {
+      const arr = state.ingredients;
+      const indx1 = action.payload;
+      const indx2 = indx1 + 1;
+      if (indx2 < arr.length) {
+        const temp = arr[indx1];
+        arr[indx1] = arr[indx2];
+        arr[indx2] = temp;
+      }
+    },
+    moveUp: (state, action: PayloadAction<number>) => {
+      const arr = state.ingredients;
+      const indx1 = action.payload;
+      const indx2 = indx1 - 1;
+      if (indx1 >= 0) {
+        const temp = arr[indx1];
+        arr[indx1] = arr[indx2];
+        arr[indx2] = temp;
+      }
     }
   },
   selectors: {
@@ -46,6 +62,6 @@ export const constructorSlice = createSlice({
   }
 });
 
-export const { addItem, deleteItem, clearAll, updateAll } =
+export const { addItem, deleteItem, clearAll, moveDown, moveUp } =
   constructorSlice.actions;
 export const { selectItems } = constructorSlice.selectors;
