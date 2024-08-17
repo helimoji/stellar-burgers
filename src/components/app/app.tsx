@@ -19,12 +19,14 @@ import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { ingredientsThunk } from '../../services/slices/ingregientsSlice';
 import { getUserThunk } from '../../services/slices/userSlice';
-import { feedThunk } from '../../services/slices/feedSlice';
 
 const App = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleModalClose = () => navigate(-1);
+  const location = useLocation();
+  const background = location.state;
+  console.log(location, background);
 
   useEffect(() => {
     dispatch(ingredientsThunk());
@@ -43,7 +45,7 @@ const App = () => {
         <Route
           path='/login'
           element={
-            <ProtectedRoute onlyUnAuth>
+            <ProtectedRoute>
               <Login />
             </ProtectedRoute>
           }
@@ -95,9 +97,7 @@ const App = () => {
         />
 
         <Route path='*' element={<NotFound404 />} />
-        {/* </Routes> */}
 
-        {/* <Routes> */}
         <Route
           path='/feed/:number'
           element={

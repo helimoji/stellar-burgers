@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { NEWORDER_SLICE_NAME } from '../constants';
 import { orderBurgerApi } from '@api';
 import { TOrder } from '@utils-types';
