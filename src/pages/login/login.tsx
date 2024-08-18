@@ -2,6 +2,7 @@ import { FC, SyntheticEvent, useState } from 'react';
 import { LoginUI } from '@ui-pages';
 import { useDispatch, useSelector } from '../../services/store';
 import { loginUserThunk, selectError } from '../../services/slices/userSlice';
+import { setCookie } from '../../utils/cookie';
 
 export const Login: FC = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,12 @@ export const Login: FC = () => {
       password: password
     };
 
-    dispatch(loginUserThunk(userData));
+    dispatch(loginUserThunk(userData))
+      .unwrap()
+      .then((dataResponse) => {
+        setCookie('accessToken', dataResponse.accessToken);
+        localStorage.setItem('refreshToken', dataResponse.refreshToken);
+      });
   };
 
   const errorMessage = useSelector(selectError);

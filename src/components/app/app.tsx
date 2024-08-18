@@ -30,7 +30,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(ingredientsThunk());
-    // dispatch(getUserThunk());
+    dispatch(getUserThunk());
   }, []);
 
   return (
@@ -45,7 +45,7 @@ const App = () => {
         <Route
           path='/login'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <Login />
             </ProtectedRoute>
           }

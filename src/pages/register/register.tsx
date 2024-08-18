@@ -6,6 +6,7 @@ import {
   selectError
 } from '../../services/slices/userSlice';
 import { TRegisterData } from '@api';
+import { setCookie } from '../../utils/cookie';
 
 export const Register: FC = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,12 @@ export const Register: FC = () => {
       name: userName,
       password: password
     };
-    dispatch(registerUserThunk(userData));
+    dispatch(registerUserThunk(userData))
+      .unwrap()
+      .then((dataResponse) => {
+        setCookie('accessToken', dataResponse.accessToken);
+        localStorage.setItem('refreshToken', dataResponse.refreshToken);
+      });
   };
 
   const errorMessage = useSelector(selectError);

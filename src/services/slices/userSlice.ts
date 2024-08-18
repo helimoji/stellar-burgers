@@ -28,25 +28,15 @@ export const logoutUserThunk = createAsyncThunk('users/logout', logoutApi);
 
 export interface UserState {
   isLoading: boolean;
-  user: TUser;
+  user: TUser | null;
   error: string | undefined;
 }
 
 const initialState: UserState = {
   isLoading: false,
-  user: {
-    name: '',
-    email: ''
-  },
+  user: null,
   error: ''
 };
-
-// accessToken
-// :
-// "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YmM3ODVmMTE5ZDQ1MDAxYjRmZjkxYyIsImlhdCI6MTcyMzkwMjE1NCwiZXhwIjoxNzIzOTAzMzU0fQ.xzT7Q1sG1qqKO7yLGoxfYbJT79FZRR6oRABsA03u3To"
-// refreshToken
-// :
-// "5ead95e7aa3e6e4febb7377b7fb476576a4a1a2f5b868d4c258060ba2e8920304f612271ab806b87"
 
 export const userSlice = createSlice({
   name: USER_SLICE_NAME,
@@ -70,8 +60,6 @@ export const userSlice = createSlice({
       .addCase(registerUserThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.user;
-        // setCookie('accessToken', action.payload.accessToken);
-        // localStorage.setItem('refreshToken', action.payload.refreshToken);
       });
     builder
       .addCase(loginUserThunk.pending, (state) => {
@@ -85,8 +73,6 @@ export const userSlice = createSlice({
       .addCase(loginUserThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.user;
-        // setCookie('accessToken', action.payload.accessToken);
-        // localStorage.setItem('refreshToken', action.payload.refreshToken);
       });
     builder
       .addCase(getUserThunk.pending, (state) => {
@@ -125,7 +111,7 @@ export const userSlice = createSlice({
       })
       .addCase(logoutUserThunk.fulfilled, (state) => {
         state.isLoading = false;
-        state.user = { name: '', email: '' };
+        state.user = null;
       });
   }
 });
