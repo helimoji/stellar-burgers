@@ -29,7 +29,6 @@ export const Profile: FC = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    // вместо селекторов использовать редьюсеры
     dispatch(updateUserThunk(formValue));
   };
 

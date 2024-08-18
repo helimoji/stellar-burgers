@@ -24,9 +24,10 @@ const App = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleModalClose = () => navigate(-1);
+  const handleCloseAndGoHome = () => navigate('/');
+
   const location = useLocation();
-  const background = location.state;
-  console.log(location, background);
+  const background = location.state?.background;
 
   useEffect(() => {
     dispatch(ingredientsThunk());
@@ -37,7 +38,8 @@ const App = () => {
     <div className={styles.app}>
       <AppHeader />
 
-      <Routes>
+      {/* Основные маршруты */}
+      <Routes location={background || location}>
         <Route path='/' element={<ConstructorPage />} />
 
         <Route path='/feed' element={<Feed />} />
@@ -96,22 +98,20 @@ const App = () => {
           }
         />
 
-        <Route path='*' element={<NotFound404 />} />
-
         <Route
-          path='/feed/:number'
+          path='/ingredients/:id'
           element={
-            <Modal title={'Информация о заказе'} onClose={handleModalClose}>
-              <OrderInfo />
+            <Modal title={'Детали ингредиента'} onClose={handleCloseAndGoHome}>
+              <IngredientDetails />
             </Modal>
           }
         />
 
         <Route
-          path='/ingredients/:id'
+          path='/feed/:number'
           element={
-            <Modal title={'Информация о заказе'} onClose={handleModalClose}>
-              <IngredientDetails />
+            <Modal title={'Информация о заказе'} onClose={handleCloseAndGoHome}>
+              <OrderInfo />
             </Modal>
           }
         />
@@ -120,13 +120,55 @@ const App = () => {
           path='/profile/orders/:number'
           element={
             <ProtectedRoute>
-              <Modal title={'Информация о заказе'} onClose={handleModalClose}>
+              <Modal
+                title={'Информация о заказе'}
+                onClose={handleCloseAndGoHome}
+              >
                 <OrderInfo />
               </Modal>
             </ProtectedRoute>
           }
         />
+
+        <Route path='*' element={<NotFound404 />} />
       </Routes>
+
+      {/* Маршруты для модальных окон */}
+      {background && (
+        <>
+          <Routes>
+            <Route
+              path='/ingredients/:id'
+              element={
+                <Modal title={'Детали ингредиента'} onClose={handleModalClose}>
+                  <IngredientDetails />
+                </Modal>
+              }
+            />
+            <Route
+              path='/feed/:number'
+              element={
+                <Modal title={'Информация о заказе'} onClose={handleModalClose}>
+                  <OrderInfo />
+                </Modal>
+              }
+            />
+            <Route
+              path='/profile/orders/:number'
+              element={
+                <ProtectedRoute>
+                  <Modal
+                    title={'Информация о заказе'}
+                    onClose={handleModalClose}
+                  >
+                    <OrderInfo />
+                  </Modal>
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </>
+      )}
     </div>
   );
 };
