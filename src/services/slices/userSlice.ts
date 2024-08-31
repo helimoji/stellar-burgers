@@ -8,7 +8,6 @@ import {
 } from '../../utils/burger-api';
 import { TUser } from '@utils-types';
 import { USER_SLICE_NAME } from '../constants';
-import { setCookie } from '../../utils/cookie';
 
 export const registerUserThunk = createAsyncThunk(
   'users/register',

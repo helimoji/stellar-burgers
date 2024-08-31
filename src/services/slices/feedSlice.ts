@@ -58,3 +58,4 @@ export const {
   selectError,
   selectIsLoading
 } = feedSlice.selectors;
+export const feedReducer = feedSlice.reducer;

@@ -65,3 +65,4 @@ export const constructorSlice = createSlice({
 export const { addItem, deleteItem, clearAll, moveDown, moveUp } =
   constructorSlice.actions;
 export const { selectItems } = constructorSlice.selectors;
+export const constructorReducer = constructorSlice.reducer;
