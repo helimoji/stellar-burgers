@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { NEWORDER_SLICE_NAME } from '../constants';
-import { orderBurgerApi } from '@api';
+import { orderBurgerApi } from '../../utils/burger-api';
 import { TOrder } from '@utils-types';
 
 interface NewOrder {

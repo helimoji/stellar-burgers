@@ -1,4 +1,3 @@
-// Импортируйте необходимые модули
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { getIngredientsApi } from '../../utils/burger-api';
 import { TIngredient } from '../../utils/types';
@@ -55,3 +54,4 @@ export const {
   getIngredientsLoadingState,
   getIngredients
 } = ingredientsSlice.selectors;
+export const ingredientsReducer = ingredientsSlice.reducer;
