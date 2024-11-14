@@ -3,7 +3,7 @@
 ## Краткое описание
 
 <p align="Left">Многостраничный веб-сайт для создания космических бургеров.</p>
-![image](https://github.com/user-attachments/assets/d30b873f-6c28-4122-99d2-f55841b17c03)
+<a  href="" target="_blank" align="center"><img src="./src/images/Превью сайта бургерной.png" width="100%" alt="Превью сайта бургерной"></a>
 
 ## Функционал:
 
