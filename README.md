@@ -1,4 +1,4 @@
-# TasteCraft
+# Stellar burgers
 
 ## Краткое описание
 
